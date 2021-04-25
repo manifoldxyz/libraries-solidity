@@ -1,4 +1,4 @@
-# solidity-libraries
+# manifoldxyz-libraries-solidity
 
 Using truffle framework
 
