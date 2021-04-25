@@ -1,5 +1,5 @@
 {
-  "name": "solidity-libraries",
+  "name": "manifoldxyz-libraries-solidity",
   "version": "1.0.0",
   "description": "",
   "main": "truffle-config.js",
@@ -17,12 +17,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manifoldxyz/solidity-libraries.git"
+    "url": "git+https://github.com/manifoldxyz/libraries-solidity.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/manifoldxyz/solidity-libraries/issues"
+    "url": "https://github.com/manifoldxyz/libraries-solidity/issues"
   },
-  "homepage": "https://github.com/manifoldxyz/solidity-libraries#readme"
+  "homepage": "https://github.com/manifoldxyz/libraries-solidity#readme"
 }
