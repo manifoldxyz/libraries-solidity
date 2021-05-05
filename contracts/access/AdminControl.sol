@@ -32,7 +32,7 @@ abstract contract AdminControl is Ownable, IAdminControl, ERC165 {
     }   
 
     /**
-     * @dev See {AdminControl-getAdmins}.
+     * @dev See {IAdminControl-getAdmins}.
      */
     function getAdmins() external view override returns (address[] memory) {
         address[] memory admins = new address[](_admins.length());
@@ -43,7 +43,7 @@ abstract contract AdminControl is Ownable, IAdminControl, ERC165 {
     }
 
     /**
-     * @dev See {AdminControl-approveAdmin}.
+     * @dev See {IAdminControl-approveAdmin}.
      */
     function approveAdmin(address admin) external override onlyOwner returns (bool) {
         emit AdminApproved(admin, msg.sender);
@@ -51,11 +51,18 @@ abstract contract AdminControl is Ownable, IAdminControl, ERC165 {
     }
 
     /**
-     * @dev See {AdminControl-revokeAdmin}.
+     * @dev See {IAdminControl-revokeAdmin}.
      */
     function revokeAdmin(address admin) external override onlyOwner returns (bool) {
         emit AdminRevoked(admin, msg.sender);
         return _admins.remove(admin);
+    }
+
+    /**
+     * @dev See {IAdminControl-isAdmin}.
+     */
+    function isAdmin(address admin) public override view returns (bool) {
+        return (owner() == admin || _admins.contains(admin));
     }
 
 }

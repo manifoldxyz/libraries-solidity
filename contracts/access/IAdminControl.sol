@@ -31,4 +31,10 @@ interface IAdminControl is IERC165 {
      */
     function revokeAdmin(address admin) external returns (bool);
 
+    /**
+     * @dev checks whether or not given address is an admin
+     * Returns True if they are
+     */
+    function isAdmin(address admin) external view returns (bool);
+
 }
