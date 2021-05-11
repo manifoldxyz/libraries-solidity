@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "./IAdminControl.sol";
 
-abstract contract AdminControl is OwnableUpgradeable, IAdminControl, ERC165 {
+abstract contract AdminControlUpgradeable is OwnableUpgradeable, IAdminControl, ERC165 {
     using EnumerableSet for EnumerableSet.AddressSet;
 
     // Track registered admins
