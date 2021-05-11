@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity 0.8.3;
 
 /// @author: manifold.xyz
 
@@ -21,15 +21,13 @@ interface IAdminControl is IERC165 {
 
     /**
      * @dev add an admin.  Can only be called by contract owner.
-     * Returns True if newly added, False if already added.
      */
-    function approveAdmin(address admin) external returns (bool);
+    function approveAdmin(address admin) external;
 
     /**
      * @dev remove an admin.  Can only be called by contract owner.
-     * Returns True if removed, False if already removed.
      */
-    function revokeAdmin(address admin) external returns (bool);
+    function revokeAdmin(address admin) external;
 
     /**
      * @dev checks whether or not given address is an admin
