@@ -6,9 +6,10 @@ pragma solidity 0.8.3;
 
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
-import "./IAdminControlCore.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "./IAdminControl.sol";
 
-abstract contract AdminControlCore is IAdminControlCore, ERC165 {
+abstract contract AdminControl is Ownable, IAdminControl, ERC165 {
     using EnumerableSet for EnumerableSet.AddressSet;
 
     // Track registered admins
@@ -18,12 +19,20 @@ abstract contract AdminControlCore is IAdminControlCore, ERC165 {
      * @dev See {IERC165-supportsInterface}.
      */
     function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165, IERC165) returns (bool) {
-        return interfaceId == type(IAdminControlCore).interfaceId
+        return interfaceId == type(IAdminControl).interfaceId
             || super.supportsInterface(interfaceId);
     }
 
     /**
-     * @dev See {IAdminControlCore-getAdmins}.
+     * @dev Only allows approved admins to call the specified function
+     */
+    modifier adminRequired() {
+        require(owner() == msg.sender || _admins.contains(msg.sender), "AdminControl: Must be owner or admin");
+        _;
+    }   
+
+    /**
+     * @dev See {IAdminControl-getAdmins}.
      */
     function getAdmins() external view override returns (address[] memory admins) {
         admins = new address[](_admins.length());
@@ -34,16 +43,9 @@ abstract contract AdminControlCore is IAdminControlCore, ERC165 {
     }
 
     /**
-     * Check if address is an admin or owner
+     * @dev See {IAdminControl-approveAdmin}.
      */
-    function _isAdmin(address owner, address admin) internal view returns (bool) {
-        return owner == admin || _admins.contains(admin);
-    }
-
-    /**
-     * @dev Approve admin
-     */
-    function _approveAdmin(address admin) internal {
+    function approveAdmin(address admin) external override onlyOwner {
         if (!_admins.contains(admin)) {
             emit AdminApproved(admin, msg.sender);
             _admins.add(admin);
@@ -51,14 +53,20 @@ abstract contract AdminControlCore is IAdminControlCore, ERC165 {
     }
 
     /**
-     * @dev Revoke admin
+     * @dev See {IAdminControl-revokeAdmin}.
      */
-    function _revokeAdmin(address admin) internal {
+    function revokeAdmin(address admin) external override onlyOwner {
         if (_admins.contains(admin)) {
             emit AdminRevoked(admin, msg.sender);
             _admins.remove(admin);
         }
     }
 
+    /**
+     * @dev See {IAdminControl-isAdmin}.
+     */
+    function isAdmin(address admin) public override view returns (bool) {
+        return (owner() == admin || _admins.contains(admin));
+    }
 
 }
