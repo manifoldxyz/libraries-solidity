@@ -7,7 +7,7 @@ pragma solidity 0.8.3;
 import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 
 /**
- * @dev Required interface of an ERC721Creator compliant extension contracts.
+ * @dev Interface for admin control
  */
 interface IAdminControl is IERC165 {
 
