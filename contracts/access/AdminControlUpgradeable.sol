@@ -4,9 +4,9 @@ pragma solidity ^0.8.0;
 
 /// @author: manifold.xyz
 
-import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
-import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "openzeppelin/utils/structs/EnumerableSet.sol";
+import "openzeppelin/utils/introspection/ERC165.sol";
+import "openzeppelin-upgradeable/access/OwnableUpgradeable.sol";
 import "./IAdminControl.sol";
 
 abstract contract AdminControlUpgradeable is OwnableUpgradeable, IAdminControl, ERC165 {
