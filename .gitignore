@@ -11,3 +11,7 @@
 *.pyc
 build
 node_modules
+
+# foundry
+cache
+out
